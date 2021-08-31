@@ -2,6 +2,16 @@ provider "aws" {
   region = var.region
 }
 
+terraform {
+  backend "s3" {
+    bucket  = "bttest-tfstate"
+    key     = "statefile/terraform.tfstate"
+    region  = "eu-west-1"
+    acl     = "private"
+    workspace_key_prefix = "us-east-1"
+  }
+}
+
 resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc-cidr
   enable_dns_hostnames = true
